@@ -1,0 +1,8 @@
+﻿
+<PageTitle>@Title</PageTitle>
+<MudText Typo="Typo.h1" Class="ma-4">@Heading</MudText>
+
+@code {
+    [Parameter] public string Heading { get; set; } = "DefaultPageHeading";
+    [Parameter] public string Title { get; set; } = "DefaultPageTitle";
+}

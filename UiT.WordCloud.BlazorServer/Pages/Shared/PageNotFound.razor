@@ -1,0 +1,14 @@
+﻿<PageTitle>Siden ikke funnet / Page Not found</PageTitle>
+
+<LayoutView Layout="@typeof(MainLayout)">
+    <PageTitle>UiT 404 - Siden ikke funnet</PageTitle>          
+    <MudText Typo="Typo.h1" Class="ma-4">Feil 404 - Siden ikke funnet :: Error 404 - Page not found</MudText>
+    <div style="width:700px; margin-left:100px; margin-top:60px">
+        <MudAlert Class="ma-4" Severity="Severity.Error" Variant="Variant.Outlined">English: Error 404 - Page not found.<br />Sorry, there's nothing at this address.<br/>The error has been logged.</MudAlert>
+        <MudAlert Class="ma-4" Severity="Severity.Error" Variant="Variant.Outlined">Norsk: Feil 404 - Siden ikke funnet.<br />Beklager, det er ingenting på denne adressen.<br/>Feilen har blitt logget. </MudAlert>
+    </div>
+</LayoutView>
+
+@code {
+    //TODO: Skriv logger
+}
