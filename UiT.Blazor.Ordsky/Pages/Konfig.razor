@@ -1,0 +1,38 @@
+﻿@page "/konfig"
+<PageHeading Title="Sett opp for ordsky" Heading="Sett opp for ordsky"></PageHeading>
+
+<MudPaper Class="ma-4" Elevation="3">
+    <MudStack>
+        <MudText Typo="Typo.h5" Class="ma-4">Ordlisten</MudText>
+
+        <MudSwitch Label="Tett liste" @bind-Checked="OrdSky.DenseTabell" Color="Color.Success"></MudSwitch>
+
+    </MudStack>
+
+</MudPaper>
+<MudPaper Class="ma-4" Elevation="3">
+    <MudStack>
+        <MudText Typo="Typo.h5" Class="ma-4">Ordskyen</MudText>
+
+
+        <MudSelect Label="Canvas størrelse" T="Components.CanvasSize" MultiSelection="false" @bind-Value="SelectedCanvasSize">
+            @foreach (Components.CanvasSize c in Components.MyOrdskyLoader.LoadCanvasSizes())
+            {
+                <MudSelectItem Value="@c">@c.Name</MudSelectItem>
+            }
+        </MudSelect>
+    </MudStack>
+    
+</MudPaper>
+
+
+@code {
+
+    [Inject] Components.MyOrdsky OrdSky { get; set; } = null!;
+
+    private Components.CanvasSize SelectedCanvasSize
+    {
+        get;
+        set;
+    }
+}

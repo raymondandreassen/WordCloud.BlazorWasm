@@ -1,4 +1,5 @@
-﻿
+﻿@using UiT.Components.DI;
+
 
 <MudTooltip Text="Change language">
     <MudFab OnClick="@(() => LanguageIsOpen = !LanguageIsOpen)"
@@ -8,7 +9,7 @@
 <MudPopover Open="@LanguageIsOpen" Fixed="true" Class="pa-6" AnchorOrigin="@Origin.BottomRight" TransformOrigin="@Origin.TopRight">
     <MudStack AlignItems="AlignItems.Center">
         @{
-            foreach (Components.DI.MyUIManager.MyCulture c in Components.DI.MyUIManager.SupportedCulturesArray)
+            foreach (MyUIManager.MyCulture c in MyUIManager.SupportedCulturesArray)
             {
                 <MudFab OnClick="@((e)=> SetLang(c.CultureCode))" Icon="@(c.CultureIcon)" Size="Size.Small" Style="@($"background:#ddd;")"></MudFab>
             }
@@ -17,7 +18,7 @@
 </MudPopover>
 
 @code {
-    [Inject] Components.DI.MyUIManager myUI { get; set; } = null!;
+    [Inject] MyUIManager myUI { get; set; } = null!;
 
     private bool LanguageIsOpen = false;
     private void SetLang(string lang)

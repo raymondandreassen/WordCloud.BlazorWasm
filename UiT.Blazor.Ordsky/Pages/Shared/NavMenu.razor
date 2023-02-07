@@ -1,0 +1,71 @@
+
+<MudNavMenu Dense="false">
+    <MudNavLink OnClick="GotoIndex" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home" Class="mb-4">Startsiden</MudNavLink>
+   
+    <MudNavLink OnClick="GotoOrdliste" Icon="@Icons.Material.Filled.List">Ordliste</MudNavLink>
+
+    @if (OnOrdliste)
+    {
+        <MudNavGroup Expanded="true" Title="Verktøy">
+            <MudNavLink OnClick="WordListClear">Tøm liste</MudNavLink>
+            <MudNavLink OnClick="WordListRandom">Legg til jukseord</MudNavLink>
+            <MudNavLink OnClick="WordListSave">Lagre listen</MudNavLink>
+        </MudNavGroup>
+    }
+
+    <MudNavLink OnClick="GotoConfig" Icon="@Icons.Material.Filled.ConfirmationNumber">Konfigurasjon</MudNavLink>
+    <MudNavLink OnClick="GotoOrdsky" Class="mb-4" Icon="@Icons.Material.Filled.CloudDownload">Ordsky</MudNavLink>
+
+    @if (OnOrdsky)
+    {
+        <MudNavGroup Expanded="true" Title="Verktøy">
+            <MudNavLink OnClick="ReloadOrdSky">Last inn på ny</MudNavLink>
+        </MudNavGroup>
+    }
+
+</MudNavMenu>
+
+@code {
+    [Inject] NavigationManager Navigation { get; set; } = null!;
+    [Inject] Components.MyOrdsky OrdSky { get; set; } = null!;
+    [Inject] UiT.Components.DI.MyUIManager MyUi { get; set; } = null!;
+
+    bool OnOrdsky = false;
+    bool OnOrdliste = false;
+
+    private async Task GotoIndex() { Navigation.NavigateTo("/"); await UpdatePage(); }
+    private async Task GotoOrdliste() { Navigation.NavigateTo("/ordliste"); await UpdatePage(); }
+    private async Task GotoConfig() { Navigation.NavigateTo("/konfig"); await UpdatePage(); }
+    private async Task GotoOrdsky() { Navigation.NavigateTo("/ordsky"); await UpdatePage(); }
+
+    private async Task UpdatePage()
+    {
+        await Task.Delay(100); // Wait for page to load
+
+        OnOrdliste = false;
+        OnOrdsky = false;
+
+        if (Navigation.Uri.Replace(Navigation.BaseUri, "").Equals("ordsky")) OnOrdsky = true;
+        if (Navigation.Uri.Replace(Navigation.BaseUri, "").Equals("ordliste")) OnOrdliste = true;
+    }
+
+    private async Task ReloadOrdSky()
+    {
+        await OrdSky.Wc_Draw();
+    }
+
+    private void WordListClear()
+    {
+        OrdSky.ClearWords();
+        MyUi.CallRequestRefresh();
+    }
+    private void WordListRandom()
+    {
+        OrdSky.NewRandomList();
+        MyUi.CallRequestRefresh();
+    }
+    private void WordListSave()
+    {
+    }
+
+}

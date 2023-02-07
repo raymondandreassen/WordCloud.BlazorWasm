@@ -1,0 +1,75 @@
+﻿@page "/ordliste"
+<PageHeading Title="Ordliste for ordsky" Heading="Ordliste for ordsky"></PageHeading>
+
+<MudTable Style="margin: 20px 20px 20px 20px"
+    Items="@Ordsky.WordList" Dense="@Ordsky.DenseTabell" Hover="true" ReadOnly="false" CanCancelEdit="true" 
+    Filter="new Func<Components.ListWord,bool>(FilterFunc)"
+          @bind-SelectedItem="selectedItem1" 
+          SortLabel="Sort By" CommitEditTooltip="Commit Edit"
+          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))"> 
+@*          RowEditPreview="BackupItem" 
+          RowEditCancel="ResetItemToOriginalValues"
+          RowEditCommit="ItemHasBeenCommitted" >*@
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Dine ord eller uttrykk</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <ColGroup>
+        <col style="width:100px;" />
+        <col style="width:auto;" />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<Components.ListWord, object>(x=>x.Count)">Antall</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Components.ListWord, object>(x=>x.Word)">Ord</MudTableSortLabel></MudTh>
+
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Sign">@context.Count</MudTd>
+        <MudTd DataLabel="Nr">@context.Word</MudTd>
+    </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd DataLabel="Count">
+            <MudTextField @bind-Value="@context.Count" Required />
+        </MudTd>
+        <MudTd DataLabel="Word">
+            <MudTextField @bind-Value="@context.Word" Required />
+        </MudTd>
+    </RowEditingTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+    <EditButtonContent Context="button">
+        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" Class="pa-0" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
+    </EditButtonContent>
+</MudTable>
+
+@code {
+
+    [Inject] Components.MyOrdsky Ordsky { get; set; } = null!;
+    [Inject] ISnackbar Snackbar { get; set; } = null!;    
+    [Inject] UiT.Components.DI.MyUIManager myUI { get; set; } = null!;
+    
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            myUI.RefreshRequested += RefreshMe;
+        }
+        base.OnAfterRender(firstRender);
+    }
+    private void RefreshMe() => this.StateHasChanged();
+
+    private string searchString = "";
+    private Components.ListWord selectedItem1 = null!;
+
+    private bool FilterFunc(Components.ListWord element)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Word.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+}
+

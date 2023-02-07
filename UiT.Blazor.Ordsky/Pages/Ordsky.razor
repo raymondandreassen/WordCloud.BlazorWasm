@@ -1,0 +1,26 @@
+﻿@page "/ordsky"
+<center>
+    <div id="my_wordcloud_canvas" style="width:1000px;height:1000px"></div>
+    @*<canvas id="my_wordcloud_canvas" style="@canvas_styletag"></canvas>*@
+</center>
+
+@code {
+    [Inject] Components.MyOrdsky OrdSky { get; set; } = null!;
+    [Inject] UiT.Components.DI.MyUIManager myUI { get; set; } = null!;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            myUI.RefreshRequested += RefreshMe;
+            await OrdSky.Wc_Draw();
+        }        
+    }
+
+    private void RefreshMe() => this.StateHasChanged();
+    
+
+
+
+}
