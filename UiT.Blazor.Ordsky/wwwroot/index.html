@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <title>UiT.Blazor.Ordsky</title>
     <base href="/" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -20,7 +22,15 @@
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+    <div id="app">
+        <div style="position:absolute; top:30vh; width:100%; text-align:center">
+            <h1>UiT Ordsky</h1>
+            <div style="display:flex; gap:10px; justify-content:center; align-items:center">
+                <div class="spinner-border" role="status"></div>
+                Vennligst vent mens vi laster inn...
+            </div>
+        </div>
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
