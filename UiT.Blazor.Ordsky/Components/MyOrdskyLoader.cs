@@ -24,17 +24,19 @@ namespace UiT.Blazor.Ordsky.Components
             };
         }
 
-        public static List<CanvasColor> LoadCanvasColors()
-        {
-            return new List<CanvasColor>
-            { 
-                new CanvasColor { Name = "Raymonds", Color = "#ffe0e0" },
-                new CanvasColor { Name = "Svart", Color="#000000" },
-                new CanvasColor { Name = "Hvit", Color="#ffffff" },
-                new CanvasColor { Name = "Rød",  Color="#00ff00" },
-                new CanvasColor { Name = "Rosa", Color="#ff0000" }
-            };
-        }
+        //public static List<CanvasColor> LoadCanvasColors()
+        //{
+        //    return new List<CanvasColor>
+        //    { 
+        //        new CanvasColor { Name = "Raymonds", Color = "#ffe0e0" },
+        //        new CanvasColor { Name = "Svart", Color="#000000" },
+        //        new CanvasColor { Name = "Hvit", Color="#ffffff" },
+        //        new CanvasColor { Name = "Rød",  Color="#00ff00" },
+        //        new CanvasColor { Name = "Rosa", Color="#ff0000" }
+        //    };
+        //}
+
+        public static string DefaultCanvasColor = "#ffffff";
 
         public static List<CanvasShape> LoadCanvasShape()
         {

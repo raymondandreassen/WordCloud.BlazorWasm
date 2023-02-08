@@ -1,8 +1,8 @@
 # Uit Ordsky
 På engelsk Wordcloud, men de kaller det gjerne Tag Cloud.  
 
-* [Github Repo: UiT.WordCloud.BlazorServer](https://github.com/UiT-ITA/UiT.WordCloud.BlazorServer/tree/master/UiT.Blazor.Ordsky)
-* [Workflows](https://github.com/UiT-ITA/UiT.WordCloud.BlazorServer/actions)
+* [Github Repo: UiT.WordCloud.BlazorServer](https://github.com/UiT-ITA/UiT.WordCloud.BlazorWasm/)
+* [Workflows](https://github.com/UiT-ITA/UiT.WordCloud.BlazorWasm/actions)
 * [Azure resource](https://portal.azure.com/#@UniversitetetiTromso.onmicrosoft.com/resource/subscriptions/115a3ce9-c18d-4dfb-a77f-6d6feaea0252/resourcegroups/ProsjektOrdsky/providers/Microsoft.Web/staticSites/Ordsky/staticsite)
 * Ved commit av ny master trigges workflow og det blir bygget en ny, hvis suksess, så deployes den til Azure. 
 * [App link](https://mango-meadow-0d4421803.2.azurestaticapps.net/)

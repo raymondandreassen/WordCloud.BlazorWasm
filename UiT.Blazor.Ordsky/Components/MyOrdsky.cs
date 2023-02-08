@@ -12,11 +12,11 @@ namespace UiT.Blazor.Ordsky.Components
         // https://github.com/timdream/wordcloud2.js/blob/gh-pages/API.md
         public MyOrdsky(IJSRuntime js)
         {
-            this.js = js;
+            this.Js = js;
             MyOrdskyLoader.RandomizeWords(WordList, 25);
         }
 
-        IJSRuntime js { get; set; } = null!;
+        IJSRuntime Js{ get; set; } = null!;
 
 
 
@@ -39,7 +39,8 @@ namespace UiT.Blazor.Ordsky.Components
 
 
         // JS kommunikasjon 
-        public CanvasColor CanvasBackgroundColor { get; set; } = MyOrdskyLoader.LoadCanvasColors().First();
+        //public CanvasColor CanvasBackgroundColor { get; set; } = MyOrdskyLoader.LoadCanvasColors().First();
+        public string CanvasBackgroundColor { get; set; } = MyOrdskyLoader.DefaultCanvasColor;
         public CanvasSize CanvasSize { get; set; }
         public double CanvasGridsize { get; set; } = 0.25;
         
@@ -70,17 +71,17 @@ namespace UiT.Blazor.Ordsky.Components
             try
             {
                 object[][] ordliste = WordListArray();
-                await js.InvokeVoidAsync("SetWordlist",             (object)ordliste);
-                await js.InvokeVoidAsync("SetBackgroundColor",      (object)CanvasBackgroundColor.Color);
+                await Js.InvokeVoidAsync("SetWordlist",             (object)ordliste);
+                await Js.InvokeVoidAsync("SetBackgroundColor",      (object)CanvasBackgroundColor);
 
-                await js.InvokeVoidAsync("SetGridSize",             (object)CanvasGridsize);
-                await js.InvokeVoidAsync("SetShrinkToFit",          (object)CanvasShrinkToFit);
-                await js.InvokeVoidAsync("SetDrawOutOfBound",       (object)CanvasDrawOutofBounds);
-                await js.InvokeVoidAsync("SetShape",                (object)CanvasShape.Name);
-                await js.InvokeVoidAsync("SetEllipticity",          (object)CanvasEllipticity);
-                await js.InvokeVoidAsync("SetRotateRatio",          (object)CanvasRotateRatio);
+                await Js.InvokeVoidAsync("SetGridSize",             (object)CanvasGridsize);
+                await Js.InvokeVoidAsync("SetShrinkToFit",          (object)CanvasShrinkToFit);
+                await Js.InvokeVoidAsync("SetDrawOutOfBound",       (object)CanvasDrawOutofBounds);
+                await Js.InvokeVoidAsync("SetShape",                (object)CanvasShape.Name);
+                await Js.InvokeVoidAsync("SetEllipticity",          (object)CanvasEllipticity);
+                await Js.InvokeVoidAsync("SetRotateRatio",          (object)CanvasRotateRatio);
 
-                await js.InvokeVoidAsync("drawWordCloud");
+                await Js.InvokeVoidAsync("drawWordCloud");
 
                 /*
                     function SetBackgroundColor (color)             { _backgroundColor = color;     }

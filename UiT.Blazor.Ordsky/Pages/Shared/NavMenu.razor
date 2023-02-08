@@ -3,15 +3,15 @@
     <MudNavLink OnClick="GotoIndex" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home" Class="mb-4">Startsiden</MudNavLink>
 
     <MudNavLink OnClick="GotoKeep" Icon="@Icons.Material.Filled.List">Uttrykk</MudNavLink>
-    <MudNavLink OnClick="GotoNoise" Icon="@Icons.Material.Filled.List">Støyord</MudNavLink>
+    <MudNavLink OnClick="GotoNoise" Icon="@Icons.Material.Filled.List">St&oslash;yord</MudNavLink>
     <MudDivider></MudDivider>
     
     <MudNavLink OnClick="GotoOrdliste" Icon="@Icons.Material.Filled.List">Ordliste</MudNavLink>
 
     @if (OnOrdliste)
     {
-        <MudNavGroup Expanded="true" Title="Verktøy">
-            <MudNavLink OnClick="WordListClear">Tøm liste</MudNavLink>
+        <MudNavGroup Expanded="true" Title="Verkt&oslash;y">
+            <MudNavLink OnClick="WordListClear">T&oslash;m liste</MudNavLink>
             <MudNavLink OnClick="WordListRandom">Legg til jukseord</MudNavLink>
             <MudNavLink OnClick="WordListSave">Lagre listen</MudNavLink>
         </MudNavGroup>
@@ -22,8 +22,8 @@
 
     @if (OnOrdsky)
     {
-        <MudNavGroup Expanded="true" Title="Verktøy">
-            <MudNavLink OnClick="ReloadOrdSky">Last inn på ny</MudNavLink>
+        <MudNavGroup Expanded="true" Title="Verkt&oslash;y">
+            <MudNavLink OnClick="ReloadOrdSky">Last inn p&aring; ny</MudNavLink>
         </MudNavGroup>
     }
 

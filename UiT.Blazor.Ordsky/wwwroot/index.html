@@ -3,22 +3,21 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
+
     <title>UiT.Blazor.Ordsky</title>
     <base href="/" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <link href="css/app.css" rel="stylesheet" />
-
     <link href="flags/flag-icons.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
-    
+
     <!-- MudBlazor -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
-    
+
     <!-- If you add any scoped CSS files, uncomment the following to load them
     <link href="UiT.Blazor.Ordsky.styles.css" rel="stylesheet" /> -->
+    <!-- Spinkit https://github.com/EdCharbeneau/BlazorPro.Spinkit/ -->
+    <link href="_content/BlazorPro.Spinkit/spinkit.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -28,6 +27,14 @@
             <div style="display:flex; gap:10px; justify-content:center; align-items:center">
                 <div class="spinner-border" role="status"></div>
                 Vennligst vent mens vi laster inn...
+            </div>
+        </div>
+        <div class="modal-overlay">
+            <div class="sk-fold">
+                <div class="sk-fold-cube"></div>
+                <div class="sk-fold-cube"></div>
+                <div class="sk-fold-cube"></div>
+                <div class="sk-fold-cube"></div>
             </div>
         </div>
     </div>
