@@ -18,12 +18,7 @@ namespace UiT.Blazor.Ordsky.Components
 
         IJSRuntime js { get; set; } = null!;
 
-        public async Task GetJsInfo()
-        {
-            WordCloudIsSupported = await js.InvokeAsync<bool>("WordCloud.isSupported", null);
-            WordCloudMinFontSize = "";
-            WordCloudWrapperVersion = await js.InvokeAsync<string>("WordCloudWrapperVersion");
-        }
+
 
         // Ordliste Kontroll
         public List<ListWord> WordList { get; set; } = new List<ListWord>();
@@ -68,10 +63,6 @@ namespace UiT.Blazor.Ordsky.Components
         public decimal CanvasEllipticity { get; set; } = 1;
         public decimal CanvasRotateRatio { get; set; } = 0;
 
-        public string WordCloudWrapperVersion { get; set; } = string.Empty;
-
-        public bool WordCloudIsSupported { get; set; } = false;
-        public string WordCloudMinFontSize { get; set; } = string.Empty;
 
 
         public async Task Wc_Draw()
