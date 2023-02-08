@@ -1,0 +1,29 @@
+﻿@page "/uttrykk"
+
+<PageHeading Title="Ordsky" Heading="Ordsky - Setninger/Sammensatte ord du vil beholde"></PageHeading>
+<MudStack Style="width:1200px">
+    <MudTextField @ref="multilineReference"
+                  T="string"
+                  Label="Din uttrykk/setninger du vil beholde"
+                  Lines="30"
+                  Variant="Variant.Outlined"
+                  Text="@sampleText"
+                  Adornment="Adornment.End"
+                  AdornmentIcon="@Icons.Material.Filled.Api"
+                  OnAdornmentClick="@(() => multilineReference.SelectAsync())" />
+    <MudButton Variant="Variant.Outlined" Color="Color.Primary" FullWidth="true" Style="height:35px">Generer ordliste</MudButton>
+</MudStack>
+
+
+@code
+{
+    private MudTextField<string> multilineReference;
+    
+    string sampleText = @"Du kan trykke så mye du vil, men knappen under har ingen funksjon. 
+UiT Norges Arktiske Universitet
+Universitetet i Oslo
+Universitetet i Bergen
+Norges tekniske Universitet
+IT avdeling
+IT avdelingen";
+}

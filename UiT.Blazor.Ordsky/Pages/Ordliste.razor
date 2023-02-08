@@ -2,31 +2,30 @@
 <PageHeading Title="Ordliste for ordsky" Heading="Ordliste for ordsky"></PageHeading>
 
 <MudTable Style="margin: 20px 20px 20px 20px"
-    Items="@Ordsky.WordList" Dense="@Ordsky.DenseTabell" Hover="true" ReadOnly="false" CanCancelEdit="true" 
-    Filter="new Func<Components.ListWord,bool>(FilterFunc)"
+    Items="@Ordsky.WordList" Dense="@Ordsky.DenseTabell" 
+          Filter="new Func<Components.Model.ListWord,bool>(FilterFunc)"
           @bind-SelectedItem="selectedItem1" 
-          SortLabel="Sort By" CommitEditTooltip="Commit Edit"
-          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))"> 
-@*          RowEditPreview="BackupItem" 
-          RowEditCancel="ResetItemToOriginalValues"
-          RowEditCommit="ItemHasBeenCommitted" >*@
+          Hover="true" ReadOnly="false" SortLabel="Sort By">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Dine ord eller uttrykk</MudText>
         <MudSpacer />
+        <MudIcon Icon="@Icons.Material.Filled.Add" onclick="@(() => AddWord())" Color="Color.Success"></MudIcon>
         <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <ColGroup>
         <col style="width:100px;" />
-        <col style="width:auto;" />
+        <col style="width:100%;" />
+        <col style="width:50px;" />
     </ColGroup>
     <HeaderContent>
-        <MudTh><MudTableSortLabel SortBy="new Func<Components.ListWord, object>(x=>x.Count)">Antall</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<Components.ListWord, object>(x=>x.Word)">Ord</MudTableSortLabel></MudTh>
-
+        <MudTh><MudTableSortLabel SortBy="new Func<Components.Model.ListWord, object>(x=>x.Count)">Antall</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Components.Model.ListWord, object>(x=>x.Word)">Ord</MudTableSortLabel></MudTh>
+        <MudTh>Fjern</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Sign">@context.Count</MudTd>
-        <MudTd DataLabel="Nr">@context.Word</MudTd>
+        <MudTd DataLabel="Antall">@context.Count</MudTd>
+        <MudTd DataLabel="Ord">@context.Word</MudTd>
+        <MudTd DataLabel="Fjern"><MudIcon Icon="@Icons.Material.Filled.AutoDelete" onclick="@(() => DeleteWord(context))" Color="Color.Error"></MudIcon></MudTd>
     </RowTemplate>
     <RowEditingTemplate>
         <MudTd DataLabel="Count">
@@ -37,7 +36,7 @@
         </MudTd>
     </RowEditingTemplate>
     <PagerContent>
-        <MudTablePager />
+        <MudTablePager InfoFormat="Linje {first_item}-{last_item} av {all_items}" RowsPerPageString="Rader pr side" />
     </PagerContent>
     <EditButtonContent Context="button">
         <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" Class="pa-0" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
@@ -49,7 +48,7 @@
     [Inject] Components.MyOrdsky Ordsky { get; set; } = null!;
     [Inject] ISnackbar Snackbar { get; set; } = null!;    
     [Inject] UiT.Components.DI.MyUIManager myUI { get; set; } = null!;
-    
+
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
@@ -61,15 +60,26 @@
     private void RefreshMe() => this.StateHasChanged();
 
     private string searchString = "";
-    private Components.ListWord selectedItem1 = null!;
+    private Components.Model.ListWord selectedItem1 = null!;
 
-    private bool FilterFunc(Components.ListWord element)
+    private bool FilterFunc(Components.Model.ListWord element)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
         if (element.Word.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
         return false;
+    }
+
+    private void AddWord()
+    {
+        Ordsky.WordList.Add(new Components.Model.ListWord() { Word = "Nytt ord", Count = 1 });
+    }
+
+    private void DeleteWord(Components.Model.ListWord w)
+    {
+        Ordsky.FjernOrd(w);
+        this.StateHasChanged();
     }
 }
 

@@ -1,7 +1,11 @@
 
 <MudNavMenu Dense="false">
     <MudNavLink OnClick="GotoIndex" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home" Class="mb-4">Startsiden</MudNavLink>
-   
+
+    <MudNavLink OnClick="GotoKeep" Icon="@Icons.Material.Filled.List">Uttrykk</MudNavLink>
+    <MudNavLink OnClick="GotoNoise" Icon="@Icons.Material.Filled.List">Støyord</MudNavLink>
+    <MudDivider></MudDivider>
+    
     <MudNavLink OnClick="GotoOrdliste" Icon="@Icons.Material.Filled.List">Ordliste</MudNavLink>
 
     @if (OnOrdliste)
@@ -35,6 +39,8 @@
 
     private async Task GotoIndex() { Navigation.NavigateTo("/"); await UpdatePage(); }
     private async Task GotoOrdliste() { Navigation.NavigateTo("/ordliste"); await UpdatePage(); }
+    private async Task GotoNoise() { Navigation.NavigateTo("/noise"); await UpdatePage(); }
+    private async Task GotoKeep() { Navigation.NavigateTo("/uttrykk"); await UpdatePage(); }
     private async Task GotoConfig() { Navigation.NavigateTo("/konfig"); await UpdatePage(); }
     private async Task GotoOrdsky() { Navigation.NavigateTo("/ordsky"); await UpdatePage(); }
 
@@ -64,6 +70,7 @@
         OrdSky.NewRandomList();
         MyUi.CallRequestRefresh();
     }
+    
     private void WordListSave()
     {
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
+using UiT.Blazor.Ordsky.Components.Model;
 using UiT.Blazor.Ordsky.Pages;
 using static MudBlazor.Colors;
 
@@ -17,13 +18,21 @@ namespace UiT.Blazor.Ordsky.Components
 
         IJSRuntime js { get; set; } = null!;
 
-
+        public async Task GetJsInfo()
+        {
+            WordCloudIsSupported = await js.InvokeAsync<bool>("WordCloud.isSupported", null);
+            WordCloudMinFontSize = "";
+            WordCloudWrapperVersion = await js.InvokeAsync<string>("WordCloudWrapperVersion");
+        }
 
         // Ordliste Kontroll
         public List<ListWord> WordList { get; set; } = new List<ListWord>();
         public void ClearWords() => WordList.Clear();
         public void NewRandomList() => MyOrdskyLoader.RandomizeWords(WordList, 5);
-
+        public void FjernOrd(ListWord w)
+        {
+            WordList.Remove(w);
+        }
 
         // Ordliste konfig
         public bool DenseTabell { get; set; } = true;
@@ -35,16 +44,62 @@ namespace UiT.Blazor.Ordsky.Components
 
 
         // JS kommunikasjon 
-        public System.Drawing.Color Wc_BackgroundColor { get; set; } = System.Drawing.ColorTranslator.FromHtml("#ffe0e0");
+        public CanvasColor CanvasBackgroundColor { get; set; } = MyOrdskyLoader.LoadCanvasColors().First();
         public CanvasSize CanvasSize { get; set; }
+        public double CanvasGridsize { get; set; } = 0.25;
+        
+        private bool shrinktofit = false;
+        private bool drawoutofbounds = false;
+        public bool CanvasShrinkToFit { get { return shrinktofit; } 
+            set 
+            { 
+                shrinktofit = value;
+                if (shrinktofit) drawoutofbounds = false;
+            } 
+        } 
+        public bool CanvasDrawOutofBounds { get { return drawoutofbounds; } 
+            set 
+            { 
+                drawoutofbounds = value;
+                if (drawoutofbounds) shrinktofit = false;
+            } 
+        } 
+        public CanvasShape CanvasShape { get; set; } = MyOrdskyLoader.LoadCanvasShape().First();
+        public decimal CanvasEllipticity { get; set; } = 1;
+        public decimal CanvasRotateRatio { get; set; } = 0;
+
+        public string WordCloudWrapperVersion { get; set; } = string.Empty;
+
+        public bool WordCloudIsSupported { get; set; } = false;
+        public string WordCloudMinFontSize { get; set; } = string.Empty;
+
+
         public async Task Wc_Draw()
         {
             try
             {
                 object[][] ordliste = WordListArray();
-                await js.InvokeVoidAsync("SetWordlist", (object)ordliste);
-                await js.InvokeVoidAsync("SetBackgroundColor", (object)System.Drawing.ColorTranslator.ToHtml(Wc_BackgroundColor));
+                await js.InvokeVoidAsync("SetWordlist",             (object)ordliste);
+                await js.InvokeVoidAsync("SetBackgroundColor",      (object)CanvasBackgroundColor.Color);
+
+                await js.InvokeVoidAsync("SetGridSize",             (object)CanvasGridsize);
+                await js.InvokeVoidAsync("SetShrinkToFit",          (object)CanvasShrinkToFit);
+                await js.InvokeVoidAsync("SetDrawOutOfBound",       (object)CanvasDrawOutofBounds);
+                await js.InvokeVoidAsync("SetShape",                (object)CanvasShape.Name);
+                await js.InvokeVoidAsync("SetEllipticity",          (object)CanvasEllipticity);
+                await js.InvokeVoidAsync("SetRotateRatio",          (object)CanvasRotateRatio);
+
                 await js.InvokeVoidAsync("drawWordCloud");
+
+                /*
+                    function SetBackgroundColor (color)             { _backgroundColor = color;     }
+                    function SetWordlist        (ordliste)          { _ordliste = ordliste; }
+                    function SetGridSize        (gridsize)          { _gridSize = gridsize; }
+                    function SetDrawOutOfBound  (drawOutOfBound)    { _drawOutOfBound = drawOutOfBound; }
+                    function SetShape           (shape)             { _shape = shape; }
+                    function SetEllipticity     (ellipticity)       { _ellipticity = ellipticity; }
+                    function SetRotateRatio     (rotateRatio)       { _rotateRatio = rotateRatio; }
+                */
             }
             catch (JSException e)
             {
@@ -53,18 +108,9 @@ namespace UiT.Blazor.Ordsky.Components
         }
     }
 
-    public class ListWord
-    {
-        public string Word { get; set; } = string.Empty;
-        public int Count { get; set; } = 0;
-    }
 
-    public class CanvasSize
-    {
-        public string Name { get; set; } = string.Empty;
-        public int Width { get; set; } = 0;
-        public int Height { get; set; } = 0;
-    }
+
+
 
     #region WordList for test
     //object[][] ordliste = new[] {

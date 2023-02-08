@@ -1,38 +1,93 @@
 ﻿@page "/konfig"
 <PageHeading Title="Sett opp for ordsky" Heading="Sett opp for ordsky"></PageHeading>
 
-<MudPaper Class="ma-4" Elevation="3">
-    <MudStack>
-        <MudText Typo="Typo.h5" Class="ma-4">Ordlisten</MudText>
+<MudPaper Class="ma-4 pa-4" Elevation="3">
+    <MudGrid>
+        <MudItem xs="12" Style="align-content:center">
+            <MudText Typo="Typo.h5" Class="ma-4">Ordlisten</MudText>
+        </MudItem>
+        <MudItem xs="5" Style="align-content:center">
+            <MudSwitch Label="Tett liste" @bind-Checked="_OrdSky.DenseTabell" Color="Color.Success"></MudSwitch>
+        </MudItem>
 
-        <MudSwitch Label="Tett liste" @bind-Checked="OrdSky.DenseTabell" Color="Color.Success"></MudSwitch>
+        <MudItem xs="5" Style="align-content:center">
 
-    </MudStack>
+        </MudItem>
+
+    </MudGrid>
 
 </MudPaper>
-<MudPaper Class="ma-4" Elevation="3">
-    <MudStack>
-        <MudText Typo="Typo.h5" Class="ma-4">Ordskyen</MudText>
+<MudPaper Class="ma-4 pa-4" Elevation="3">
+    <MudGrid>
+        <MudItem xs="12" Style="align-content:center">
+            <MudText Typo="Typo.h5">Ordskyen</MudText>
+        </MudItem>
 
+        <MudItem xs="6" Style="align-content:center">
+            <MudSelect Label="Canvas størrelse" T="Components.Model.CanvasSize" MultiSelection="false" ToStringFunc="@converter_CanvasSize" @bind-Value="@(_OrdSky.CanvasSize)">
+                @foreach (Components.Model.CanvasSize c in Components.MyOrdskyLoader.LoadCanvasSizes())
+                {
+                    <MudSelectItem Value="@c"></MudSelectItem>
+                }
+            </MudSelect>
+            obs: Funker ikke
+        </MudItem>
 
-        <MudSelect Label="Canvas størrelse" T="Components.CanvasSize" MultiSelection="false" @bind-Value="SelectedCanvasSize">
-            @foreach (Components.CanvasSize c in Components.MyOrdskyLoader.LoadCanvasSizes())
-            {
-                <MudSelectItem Value="@c">@c.Name</MudSelectItem>
-            }
-        </MudSelect>
-    </MudStack>
+        <MudItem xs="6" Style="align-content:center">
+            <MudSelect Label="Canvas bakgrunnsfarge" T="Components.Model.CanvasColor" MultiSelection="false" ToStringFunc="@converter_CanvasColor" @bind-Value="@(_OrdSky.CanvasBackgroundColor)">
+                @foreach (Components.Model.CanvasColor c in Components.MyOrdskyLoader.LoadCanvasColors())
+                {
+                        <MudSelectItem Value="@c"></MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+
+        <MudItem xs="6" Style="align-content:center">
+            <MudSelect Label="Canvas bakgrunnsfarge" T="Components.Model.CanvasShape" MultiSelection="false" ToStringFunc="@converter_CanvasShape" @bind-Value="@(_OrdSky.CanvasShape)">
+                @foreach (Components.Model.CanvasShape c in Components.MyOrdskyLoader.LoadCanvasShape())
+                {
+                    <MudSelectItem Value="@c"></MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+
+        <MudItem xs="6" Style="align-content:center">
+            
+        </MudItem>
+
+        <MudItem xs="6" Style="align-content:center">
+            <MudSwitch Label="Krymp tekst for å tilpasse" @bind-Checked="_OrdSky.CanvasShrinkToFit" Color="Color.Success"></MudSwitch>
+        </MudItem>
+
+        <MudItem xs="6" Style="align-content:center">
+            <MudSwitch Label="Tegn utenfor canvas" @bind-Checked="_OrdSky.CanvasDrawOutofBounds" Color="Color.Success"></MudSwitch>
+        </MudItem>
+    </MudGrid>
+    
+    Ordsky wrapper versjon: @(_OrdSky.WordCloudWrapperVersion), Nettleser støtter funksjonalitet: @(_OrdSky.WordCloudIsSupported)
     
 </MudPaper>
 
 
 @code {
 
-    [Inject] Components.MyOrdsky OrdSky { get; set; } = null!;
+    [Inject] Components.MyOrdsky _OrdSky { get; set; } = null!;
 
-    private Components.CanvasSize SelectedCanvasSize
+    private Components.Model.CanvasSize SelectedCanvasSize { get; set; } = null!;
+    private Components.Model.CanvasColor SelectedCanvasColor { get; set; } = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        get;
-        set;
+        if (firstRender)
+        {
+            SelectedCanvasSize = _OrdSky.CanvasSize;
+            SelectedCanvasColor = _OrdSky.CanvasBackgroundColor;
+
+            await _OrdSky.GetJsInfo();
+        }
     }
+    
+    Func<Components.Model.CanvasSize, string> converter_CanvasSize = p => p?.Name;
+    Func<Components.Model.CanvasColor, string> converter_CanvasColor = p => p?.Name;
+    Func<Components.Model.CanvasShape, string> converter_CanvasShape = p => p?.DisplayName;
 }

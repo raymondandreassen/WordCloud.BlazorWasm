@@ -70,18 +70,19 @@ namespace UiT.Components.DI
                 //    DrawerBackground            = "#f0f0f0",
                 //    DrawerIcon                  = "rgba(0,0,0, 0.50)",
                 AppbarBackground = "#043348",                        // App bar
-                AppbarText = "rgba(255,255,255, 0.70)",        // App bar text
+                AppbarText = "rgba(255,255,255, 0.70)"        // App bar text
                                                                //    TextPrimary                 = "rgba(0,0,0, 0.70)",
                                                                //    //TextSecondary             = "rgba(255,255,255, 0.50)",
                                                                //    TextSecondary               = "rgba(60,60,60, 0.50)",           // f.eks. inne i tekstbokser
                                                                //    ActionDefault               = "#adadb1",
                                                                //    ActionDisabled              = "rgba(255,255,255, 0.26)",
                                                                //    ActionDisabledBackground    = "rgba(255,255,255, 0.12)"
+                                                               
             },
 
-            Shadows = new Shadow(),
+            //Shadows = new Shadow(),
 
-            ZIndex = new ZIndex(),
+            //ZIndex = new ZIndex(),
 
             LayoutProperties = new LayoutProperties()
             {
@@ -92,11 +93,12 @@ namespace UiT.Components.DI
                 // DrawerHeightBottom      = "", 
                 DrawerWidthLeft = "250px",     // Størrelse på meny
                 DrawerWidthRight = "1100px",    // Størrelse på drawer til høyre
-                AppbarHeight = "48px",      // Høyden på logolinjen på topp
+                AppbarHeight = "48px"      // Høyden på logolinjen på topp
                 // AppbarMinHeight         = "",       // Depricated
                 // DefaultBorderRadius     = ""
+                
             },
-            PaletteDark = new PaletteDark(),
+            //PaletteDark = new PaletteDark(),
 
             Typography = new Typography()
             {
@@ -109,12 +111,12 @@ namespace UiT.Components.DI
                 H6 = new H6() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "1.2rem", FontWeight = 300, LineHeight = 1.600, LetterSpacing = "-0.01em", TextTransform = "none" },
 
                 Subtitle1 = new Subtitle1() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "1.15rem", FontWeight = 500, LineHeight = 1.750, LetterSpacing = ".00938em", TextTransform = "none" },
-                Subtitle2 = new Subtitle2() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "1.0rem", FontWeight = 500, LineHeight = 1.570, LetterSpacing = ".01em", TextTransform = "none" },
-                Body1 = new Body1() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "1.0rem", FontWeight = 400, LineHeight = 0.95, LetterSpacing = ".00938em", TextTransform = "none" },
-                Body2 = new Body2() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = ".9rem", FontWeight = 400, LineHeight = 0.85, LetterSpacing = ".01071em", TextTransform = "none" },
-                Button = new Button() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = ".75rem", FontWeight = 400, LineHeight = 0.0, LetterSpacing = ".02857em", TextTransform = "none" },
-                Caption = new Caption() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = ".75rem", FontWeight = 400, LineHeight = 0.0, LetterSpacing = ".02333em", TextTransform = "none" },
-                Overline = new Overline() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = ".75rem", FontWeight = 600, LineHeight = 0.0, LetterSpacing = ".06333em", TextTransform = "none" }
+                Subtitle2 = new Subtitle2() { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "1.0rem",  FontWeight = 500, LineHeight = 1.570, LetterSpacing = ".01em", TextTransform = "none" },
+                Body1 =     new Body1()     { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "1.0rem",  FontWeight = 400, LineHeight = 0.95, LetterSpacing = ".00938em", TextTransform = "none" },
+                Body2 =     new Body2()     { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "0.9rem",  FontWeight = 400, LineHeight = 0.85, LetterSpacing = ".01071em", TextTransform = "none" },
+                Button =    new Button()    { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "1.0rem",  FontWeight = 500, LineHeight = 0.0, LetterSpacing = ".03057em", TextTransform = "none" },
+                Caption =   new Caption()   { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "0.75rem", FontWeight = 400, LineHeight = 0.0, LetterSpacing = ".02333em", TextTransform = "none" },
+                Overline =  new Overline()  { FontFamily = new[] { "Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif" }, FontSize = "0.75rem", FontWeight = 600, LineHeight = 0.0, LetterSpacing = ".06333em", TextTransform = "none" }
             }
         };
 

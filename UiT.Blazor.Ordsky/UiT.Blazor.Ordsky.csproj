@@ -13,4 +13,10 @@
     <PackageReference Include="MudBlazor" Version="6.1.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\js\ordsky.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
