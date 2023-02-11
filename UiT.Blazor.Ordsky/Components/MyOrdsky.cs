@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
+using System.Runtime.Intrinsics.X86;
+using System;
 using UiT.Blazor.Ordsky.Components.Model;
 using UiT.Blazor.Ordsky.Pages;
+using static MudBlazor.CategoryTypes;
 using static MudBlazor.Colors;
 
 namespace UiT.Blazor.Ordsky.Components
@@ -13,12 +16,10 @@ namespace UiT.Blazor.Ordsky.Components
         public MyOrdsky(IJSRuntime js)
         {
             this.Js = js;
-            MyOrdskyLoader.RandomizeWords(WordList, 25);
+            MyOrdskyLoader.RandomizeWords(WordList, 100);
         }
 
         IJSRuntime Js{ get; set; } = null!;
-
-
 
         // Ordliste Kontroll
         public List<ListWord> WordList { get; set; } = new List<ListWord>();
@@ -27,6 +28,11 @@ namespace UiT.Blazor.Ordsky.Components
         public void FjernOrd(ListWord w)
         {
             WordList.Remove(w);
+        }
+
+        public void Shuffle()
+        {
+            WordList = WordList.OrderByDescending(w => w.Count).ToList();
         }
 
         // Ordliste konfig
@@ -39,8 +45,9 @@ namespace UiT.Blazor.Ordsky.Components
 
 
         // JS kommunikasjon 
-        //public CanvasColor CanvasBackgroundColor { get; set; } = MyOrdskyLoader.LoadCanvasColors().First();
-        public string CanvasBackgroundColor { get; set; } = MyOrdskyLoader.DefaultCanvasColor;
+        public string CanvasBackgroundColor { 
+            get; 
+            set; } = MyOrdskyLoader.DefaultCanvasColor;
         public CanvasSize CanvasSize { get; set; }
         public double CanvasGridsize { get; set; } = 0.25;
         
@@ -64,8 +71,16 @@ namespace UiT.Blazor.Ordsky.Components
         public decimal CanvasEllipticity { get; set; } = 1;
         public decimal CanvasRotateRatio { get; set; } = 0;
 
+        public string CanvasFont { get; set; } = "Times, serif";
+        public string CanvasFontWeight { get; set; } = "normal";
 
-
+        public decimal CanvasMinFontSize { get; set; } = 0;
+        public decimal CanvasWeightFactor { get; set; } = 0;
+        public decimal CanvasMinRotation { get; set; } = 0;
+        public decimal CanvasMaxRotation { get; set; } = 0;
+        public decimal CanvasRotasjonssteg { get; set; } = 0;
+        public decimal CanvasRotasjonssannsynlighet { get; set; } = 0;
+        
         public async Task Wc_Draw()
         {
             try
@@ -82,16 +97,6 @@ namespace UiT.Blazor.Ordsky.Components
                 await Js.InvokeVoidAsync("SetRotateRatio",          (object)CanvasRotateRatio);
 
                 await Js.InvokeVoidAsync("drawWordCloud");
-
-                /*
-                    function SetBackgroundColor (color)             { _backgroundColor = color;     }
-                    function SetWordlist        (ordliste)          { _ordliste = ordliste; }
-                    function SetGridSize        (gridsize)          { _gridSize = gridsize; }
-                    function SetDrawOutOfBound  (drawOutOfBound)    { _drawOutOfBound = drawOutOfBound; }
-                    function SetShape           (shape)             { _shape = shape; }
-                    function SetEllipticity     (ellipticity)       { _ellipticity = ellipticity; }
-                    function SetRotateRatio     (rotateRatio)       { _rotateRatio = rotateRatio; }
-                */
             }
             catch (JSException e)
             {

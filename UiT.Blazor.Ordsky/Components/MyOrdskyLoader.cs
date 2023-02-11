@@ -24,17 +24,50 @@ namespace UiT.Blazor.Ordsky.Components
             };
         }
 
-        //public static List<CanvasColor> LoadCanvasColors()
-        //{
-        //    return new List<CanvasColor>
-        //    { 
-        //        new CanvasColor { Name = "Raymonds", Color = "#ffe0e0" },
-        //        new CanvasColor { Name = "Svart", Color="#000000" },
-        //        new CanvasColor { Name = "Hvit", Color="#ffffff" },
-        //        new CanvasColor { Name = "Rød",  Color="#00ff00" },
-        //        new CanvasColor { Name = "Rosa", Color="#ff0000" }
-        //    };
-        //}
+        public static List<string> LoadFonts()
+        {             
+            return new List<string>
+            {
+                "IKKE I BRUK, ENDA",
+                "Arial",
+                "Arial Black",
+                "Comic Sans MS",
+                "Courier New",
+                "Georgia",
+                "Impact",
+                "Lucida Console",
+                "Lucida Sans Unicode",
+                "Palatino Linotype",
+                "Tahoma",
+                "Times New Roman",
+                "Trebuchet MS",
+                "Verdana"
+            };
+        }
+
+        public static List<string> LoadFontsWeight()
+        {
+            {
+                return new List<string>
+                {
+                    "IKKE I BRUK, ENDA",
+                    "normal",
+                    "bold",
+                    "bolder",
+                    "lighter",
+                    "100",
+                    "200",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800",
+                    "900"
+                };
+            }   
+        }
+
 
         public static string DefaultCanvasColor = "#ffffff";
 
@@ -47,7 +80,7 @@ namespace UiT.Blazor.Ordsky.Components
                 new CanvasShape { Name = "diamond", DisplayName = "Diamant" },
                 new CanvasShape { Name = "square", DisplayName = "Firkant" },
                 new CanvasShape { Name = "triangle", DisplayName = "Trekant" },
-                new CanvasShape { Name = "pentagon", DisplayName = "xxx" },
+                new CanvasShape { Name = "pentagon", DisplayName = "Pentagon" },
                 new CanvasShape { Name = "star", DisplayName = "Stjerne" }
             };
         }

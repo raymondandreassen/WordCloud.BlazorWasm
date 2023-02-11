@@ -13,6 +13,7 @@
         <MudNavGroup Expanded="true" Title="Verkt&oslash;y">
             <MudNavLink OnClick="WordListClear">T&oslash;m liste</MudNavLink>
             <MudNavLink OnClick="WordListRandom">Legg til jukseord</MudNavLink>
+            <MudNavLink OnClick="Shuffle">Sorter ord</MudNavLink>
             <MudNavLink OnClick="WordListSave">Lagre listen</MudNavLink>
         </MudNavGroup>
     }
@@ -70,9 +71,14 @@
         OrdSky.NewRandomList();
         MyUi.CallRequestRefresh();
     }
-    
+
     private void WordListSave()
     {
+    }
+
+    private void Shuffle()
+    {
+        OrdSky.Shuffle();
     }
 
 }

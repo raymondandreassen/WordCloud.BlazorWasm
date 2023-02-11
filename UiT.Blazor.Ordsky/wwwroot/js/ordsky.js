@@ -6,7 +6,7 @@ function WordCloudWrapperVersion() {
 var _backgroundColor = '#c0c0c0';
 var _ordliste = [['Hei', 20], ['Tromsø', 45]];
 var _gridSize = 0.5;                // size of the grid in pixels for marking the availability of the canvas — the larger the grid size, the bigger the gap between words.
-var _origin = [800, 512]; 
+var _origin = [0, 0]; 
 var _drawOutOfBound = true;         // Kan tegne utenfor canvas
 var _shrinkToFit = true;            // set to true to shrink the word so it will fit into canvas. Best if drawOutOfBound is set to false.
 var _shape = 'cardioid';            // shape: The shape of the "cloud" to draw. Can be any polar equation represented as a callback function, or a keyword present. 
@@ -27,3 +27,17 @@ function drawWordCloud() {
     //var ordliste = [['Hei', 20], ['Tromsø', 45], ['UiT', 120], ['Raymond', 60], ['Espen', 40], ['Gunhild', 30], ['Microsoft 365', 90], ['Nils', 25]];
     WordCloud(document.getElementById('my_wordcloud_canvas'), { list: _ordliste, origin: _origin, backgroundColor: _backgroundColor, gridSize: _gridSize, shrinkToFit: _shrinkToFit, drawOutOfBound: _drawOutOfBound, shape: _shape, ellipticity: _ellipticity, rotateRatio: _rotateRatio });
 }
+
+//{
+//    gridSize: Math.round(16 * $('#canvas').width() / 1024),
+//        weightFactor: function (size) {
+//            return Math.pow(size, 2.3) * $('#canvas').width() / 1024;
+//        },
+//    fontFamily: 'Times, serif',
+//        color: function (word, weight) {
+//            return (weight === 12) ? '#f02222' : '#c09292';
+//        },
+//    rotateRatio: 0.5,
+//        rotationSteps: 2,
+//            backgroundColor: '#ffe0e0'
+//}
