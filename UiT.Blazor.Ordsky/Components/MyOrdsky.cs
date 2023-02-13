@@ -80,7 +80,10 @@ namespace UiT.Blazor.Ordsky.Components
         public decimal CanvasMaxRotation { get; set; } = 0;
         public decimal CanvasRotasjonssteg { get; set; } = 0;
         public decimal CanvasRotasjonssannsynlighet { get; set; } = 0;
-        
+
+        public int CanvasOriginDiffW { get; set; } = 800; // Ingen konfig
+        public int CanvasOriginDiffH { get; set; } = 500; // Ingen konfig
+
         public async Task Wc_Draw()
         {
             try
@@ -95,6 +98,18 @@ namespace UiT.Blazor.Ordsky.Components
                 await Js.InvokeVoidAsync("SetShape",                (object)CanvasShape.Name);
                 await Js.InvokeVoidAsync("SetEllipticity",          (object)CanvasEllipticity);
                 await Js.InvokeVoidAsync("SetRotateRatio",          (object)CanvasRotateRatio);
+
+                await Js.InvokeVoidAsync("SetOrigin",               (object)CanvasOriginDiffW, (object)CanvasOriginDiffH );
+
+                // Gjenstår
+                // CanvasMinFontSize
+                // CanvasWeightFactor
+                // CanvasMinRotation
+                // CanvasMaxRotation
+                // CanvasRotasjonssteg
+                // CanvasRotasjonssannsynlighet
+                // CanvasFontWeight
+                // CanvasFont
 
                 await Js.InvokeVoidAsync("drawWordCloud");
             }
