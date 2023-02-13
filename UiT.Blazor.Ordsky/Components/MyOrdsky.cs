@@ -30,17 +30,17 @@ namespace UiT.Blazor.Ordsky.Components
             WordList.Remove(w);
         }
 
-        public void Shuffle()
-        {
-            WordList = WordList.OrderByDescending(w => w.Count).ToList();
-        }
+
 
         // Ordliste konfig
         public bool DenseTabell { get; set; } = true;
-
+        public bool SorterOrd { get; set; } = false;
         public object[][] WordListArray()
         {
-            return WordList.Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
+            if(SorterOrd)
+                return WordList.OrderByDescending( c => c.Count).Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
+            else
+                return WordList.Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
         }
 
 
@@ -82,7 +82,7 @@ namespace UiT.Blazor.Ordsky.Components
         public decimal CanvasRotasjonssannsynlighet { get; set; } = 0;
 
         public int CanvasOriginDiffW { get; set; } = 800; // Ingen konfig
-        public int CanvasOriginDiffH { get; set; } = 500; // Ingen konfig
+        public int CanvasOriginDiffH { get; set; } = 700; // Ingen konfig
 
         public async Task Wc_Draw()
         {
