@@ -1,7 +1,7 @@
 # Ordsky
 På engelsk Wordcloud, men de kaller det gjerne Tag Cloud.  
 * Bruker Github workflow, fra master branch, for å deploye til Azure Static Website. 
-* [App link](https://mango-meadow-0d4421803.2.azurestaticapps.net/)
+* [App link: Ordsky](https://mango-meadow-0d4421803.2.azurestaticapps.net/)
 
 Status på denne appen: **UNDER UTVIKLING**, jobber på denne når jeg kjeder meg.  
 Bidra gjerne. 
