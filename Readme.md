@@ -44,6 +44,7 @@ Listen under er skal flyttes til Issues, når jeg får tid.
 Jo mer av funksjonalitet man fører til klienten, mer funksjonalitet er tilgjengelig.  
 My av dette under kan settes pr. ord, men det vil være en helt annen versjon. 
 
+
 | Status      | Ønsket funksjonalitet | Kommentar | Hvem fikser |
 | :---        |    :----:   | :---        |
 | Påbegynt      | Spash screen / Loading screen | Stuff man vil ha | Raymond |
