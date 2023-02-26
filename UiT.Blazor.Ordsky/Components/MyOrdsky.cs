@@ -35,15 +35,14 @@ namespace Gutan.BlazorWasm.Ordsky.Components
             WordList.Remove(w);
         }
 
-        public void Shuffle()
-        {
-            WordList = WordList.OrderByDescending(w => w.Count).ToList();
-        }
 
         
         public object[][] WordListArray()
         {
-            return WordList.Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
+            if(SorterOrd)
+                return WordList.OrderByDescending( c => c.Count).Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
+            else
+                return WordList.Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
         }
 
 
@@ -90,6 +89,9 @@ namespace Gutan.BlazorWasm.Ordsky.Components
         public decimal CanvasRotasjonssteg { get; set; } = 0;
         public decimal CanvasRotasjonssannsynlighet { get; set; } = 0;
 
+        public int CanvasOriginDiffW { get; set; } = 800; // Ingen konfig
+        public int CanvasOriginDiffH { get; set; } = 700; // Ingen konfig
+
         public async Task Wc_Draw()
         {
             try
@@ -104,6 +106,18 @@ namespace Gutan.BlazorWasm.Ordsky.Components
                 await Js.InvokeVoidAsync("SetShape", (object)CanvasShape.Name);
                 await Js.InvokeVoidAsync("SetEllipticity", (object)CanvasEllipticity);
                 await Js.InvokeVoidAsync("SetRotateRatio", (object)CanvasRotateRatio);
+
+                await Js.InvokeVoidAsync("SetOrigin",               (object)CanvasOriginDiffW, (object)CanvasOriginDiffH );
+
+                // Gjenstår
+                // CanvasMinFontSize
+                // CanvasWeightFactor
+                // CanvasMinRotation
+                // CanvasMaxRotation
+                // CanvasRotasjonssteg
+                // CanvasRotasjonssannsynlighet
+                // CanvasFontWeight
+                // CanvasFont
 
                 await Js.InvokeVoidAsync("drawWordCloud");
             }
