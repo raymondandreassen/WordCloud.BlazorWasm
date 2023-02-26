@@ -1,7 +1,7 @@
 ﻿using MudBlazor;
 using System.Reflection;
 
-namespace UiT.Components.DI
+namespace Gutan.Components.DI
 {
 
 

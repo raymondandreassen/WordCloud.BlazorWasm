@@ -2,7 +2,7 @@
 <PageHeading Title="Ordliste for ordsky" Heading="Ordliste for ordsky"></PageHeading>
 
 <MudTable Style="margin: 20px 20px 20px 20px"
-    Items="@Ordsky.WordList" Dense="@Ordsky.DenseTabell" 
+    Items="@Ordsky.WordList" Dense="true" 
           Filter="new Func<Components.Model.ListWord,bool>(FilterFunc)"
           @bind-SelectedItem="selectedItem1" 
           Hover="true" ReadOnly="false" SortLabel="Sort By">
@@ -47,7 +47,7 @@
 
     [Inject] Components.MyOrdsky Ordsky { get; set; } = null!;
     [Inject] ISnackbar Snackbar { get; set; } = null!;    
-    [Inject] UiT.Components.DI.MyUIManager myUI { get; set; } = null!;
+    [Inject] Gutan.Components.DI.MyUIManager myUI { get; set; } = null!;
 
     protected override void OnAfterRender(bool firstRender)
     {

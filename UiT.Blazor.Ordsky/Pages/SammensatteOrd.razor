@@ -1,22 +1,24 @@
-﻿@page "/uttrykk"
+﻿@page "/sammensatteOrd"
 
-<PageHeading Title="Ordsky" Heading="Ordsky - Setninger/Sammensatte ord du vil beholde"></PageHeading>
+<PageHeading Title="Ordsky" Heading="Setninger/Sammensatte ord du vil beholde."></PageHeading>
 <MudStack Style="width:1200px">
     <MudTextField @ref="multilineReference"
                   T="string"
-                  Label="Din uttrykk/setninger du vil beholde"
+                  Label="Din uttrykk/setninger du vil beholde. Et uttrykk pr linje."
                   Lines="30"
                   Variant="Variant.Outlined"
                   Text="@sampleText"
                   Adornment="Adornment.End"
                   AdornmentIcon="@Icons.Material.Filled.Api"
-                  OnAdornmentClick="@(() => multilineReference.SelectAsync())" />
+                  OnAdornmentClick="@(() => multilineReference.SelectAsync())" 
+                  @bind-Value="Ordsky.CombinedWords" />
     <MudButton Variant="Variant.Outlined" Color="Color.Primary" FullWidth="true" Style="height:35px">Generer ordliste</MudButton>
 </MudStack>
 
 
 @code
 {
+    [Inject] Components.MyOrdsky Ordsky { get; set; } = null!;
     private MudTextField<string> multilineReference;
     
     string sampleText = @"Du kan trykke så mye du vil, men knappen under har ingen funksjon. 

@@ -4,17 +4,6 @@
 
 <MudPaper Class="ma-4 pa-4" Elevation="3">
     <MudStack>
-        <MudItem Style="align-content:center">
-            <MudText Typo="Typo.h5" Class="ma-4">Ordlisten</MudText>
-        </MudItem>
-
-        <MudItem Style="align-content:center">
-            <MudSwitch Label="Tett liste" @bind-Checked="_OrdSky.DenseTabell" Color="Color.Success"></MudSwitch>
-        </MudItem>
-    </MudStack>
-</MudPaper>
-<MudPaper Class="ma-4 pa-4" Elevation="3">
-    <MudStack>
         <MudText Typo="Typo.h5">Ordskyen</MudText>
 
         <MudSelect Label="Canvas størrelse" T="Components.Model.CanvasSize" MultiSelection="false" ToStringFunc="@converter_CanvasSize" @bind-Value="@(_OrdSky.CanvasSize)">

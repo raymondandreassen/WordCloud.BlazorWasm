@@ -1,18 +1,9 @@
-﻿using UiT.Blazor.Ordsky.Components.Model;
+﻿using Gutan.BlazorWasm.Ordsky.Components.Model;
 
-namespace UiT.Blazor.Ordsky.Components
+namespace Gutan.BlazorWasm.Ordsky.Components
 {
     public class MyOrdskyLoader
     {
-        public static void RandomizeWords(List<ListWord> WordList, int count)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                WordList.Add(new ListWord { Word = Faker.Address.City(), Count = Faker.RandomNumber.Next(24) +1 });
-                WordList.Add(new ListWord { Word = Faker.Address.Country(), Count = Faker.RandomNumber.Next(24) +1 });
-            }
-        }
-
         public static List<CanvasSize> LoadCanvasSizes()
         {
             return new List<CanvasSize>

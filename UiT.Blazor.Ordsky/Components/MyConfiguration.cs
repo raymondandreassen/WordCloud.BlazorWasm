@@ -1,4 +1,4 @@
-﻿namespace UiT.Blazor.Ordsky.Components
+﻿namespace Gutan.BlazorWasm.Ordsky.Components
 {
     public class MyConfiguration
     {

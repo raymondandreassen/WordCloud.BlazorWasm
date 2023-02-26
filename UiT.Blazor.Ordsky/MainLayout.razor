@@ -5,7 +5,6 @@
 <main> (alfa)Body </main>
 -->
 
-<!-- UiT Template -->
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudThemeProvider Theme="myUI.GetTheme()" IsDarkMode="myUI.IsDarkTheme"/>
@@ -16,8 +15,8 @@
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => myUI.NavDrawerToggle())" />
         </MudTooltip>
 
-        <MudImage Alt="The artic univerity of Norway" Src="/images/uit_en.png" Class="ml-2 mr-8"></MudImage>
-        <MudText Class="ml-3" Style="font-size:1.1em;font-weight:500;color:#f5f5f5">UiT Ordsky</MudText>
+        <MudImage Alt="Gutan" Src="/images/uit_en.png" Class="ml-2 mr-8"></MudImage>
+        <MudText Class="ml-3" Style="font-size:1.1em;font-weight:500;color:#f5f5f5">Gutan's Ordsky</MudText>
         
         <MudSpacer />
 @*        <MudTooltip Text="Dark mode">
@@ -41,7 +40,7 @@
 {
     //[Inject] NavigationManager Navigation { get; set; } = null!;
 
-    [Inject] UiT.Components.DI.MyUIManager myUI { get; set; } = null!;
+    [Inject] Gutan.Components.DI.MyUIManager myUI { get; set; } = null!;
 
     protected override void OnAfterRender(bool firstRender)
     {

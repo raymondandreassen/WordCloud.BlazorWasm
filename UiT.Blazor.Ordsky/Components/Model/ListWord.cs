@@ -1,4 +1,4 @@
-﻿namespace UiT.Blazor.Ordsky.Components.Model
+﻿namespace Gutan.BlazorWasm.Ordsky.Components.Model
 {
     public class ListWord
     {

@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using MudBlazor;
-using UiT.Blazor.Ordsky;
-using UiT.Components.DI;
-using UiT.Blazor.Ordsky.Components;
+using Gutan.BlazorWasm.Ordsky;
+using Gutan.Components.DI;
+using Gutan.BlazorWasm.Ordsky.Components;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -30,7 +30,7 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
 });
 
-builder.Services.AddScoped<MyUIManager>(); // UiT UI
+builder.Services.AddScoped<MyUIManager>();
 builder.Services.AddScoped<MyOrdsky>();
 
 

@@ -1,23 +1,6 @@
 ﻿@page "/"
+<h3>Forsiden</h3>
 
-<PageHeading Title="Ordsky" Heading="Ordsky - Lim inn tekst for å bygge ordsky"></PageHeading>
-<MudStack Style="width:1200px">
-    <MudTextField 
-        @ref="multilineReference" 
-        T="string" 
-        Label="Din tekst" 
-        Lines="30" 
-        Variant="Variant.Outlined" 
-        Text="@sampleText" 
-        Adornment="Adornment.End" 
-        AdornmentIcon="@Icons.Material.Filled.Api" 
-        OnAdornmentClick="@(() => multilineReference.SelectAsync())" />
-    <MudButton Variant="Variant.Outlined" Color="Color.Primary" FullWidth="true" Style="height:35px">Generer ordliste</MudButton>
-</MudStack>
+@code {
 
-
-@code
-{
-    private MudTextField<string> multilineReference;
-    string sampleText = "Du kan trykke så mye du vil, men knappen under har ingen funksjon. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 }

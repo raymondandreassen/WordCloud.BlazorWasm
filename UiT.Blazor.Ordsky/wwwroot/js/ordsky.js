@@ -24,7 +24,6 @@ function SetEllipticity(ellipticity)        { _ellipticity = ellipticity; }
 function SetRotateRatio(rotateRatio)        { _rotateRatio = rotateRatio; }
 
 function drawWordCloud() {
-    //var ordliste = [['Hei', 20], ['Tromsø', 45], ['UiT', 120], ['Raymond', 60], ['Espen', 40], ['Gunhild', 30], ['Microsoft 365', 90], ['Nils', 25]];
     WordCloud(document.getElementById('my_wordcloud_canvas'), { list: _ordliste, origin: _origin, backgroundColor: _backgroundColor, gridSize: _gridSize, shrinkToFit: _shrinkToFit, drawOutOfBound: _drawOutOfBound, shape: _shape, ellipticity: _ellipticity, rotateRatio: _rotateRatio });
 }
 
