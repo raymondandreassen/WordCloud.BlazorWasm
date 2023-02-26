@@ -1,0 +1,83 @@
+﻿@page "/stoy"
+
+<PageHeading Title="Ordsky" Heading="Ordsky - Støy ord"></PageHeading>
+
+
+<MudTable Style="margin: 20px 20px 20px 20px; border:none"
+          Bordered="true"
+          Striped="true"
+          Items="@Ordsky.NoiseWords" Dense="true"
+          Filter="new Func<Components.Model.ListWord,bool>(FilterFunc)"
+          @bind-SelectedItem="selectedItem1"
+          Hover="true"
+          ReadOnly="false"
+          SortLabel="Sort By"
+          RowsPerPage="20"
+          Loading="@loading" LoadingProgressColor="Color.Error">
+
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Dine ord eller uttrykk</MudText>
+        <MudSpacer />
+        @*<MudIcon Icon="@Icons.Material.Filled.Add" onclick="@(() => AddWord())" Color="Color.Success"></MudIcon>*@
+        <MudTextField @bind-Value="searchString" Placeholder="Søk" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Small" Class="mt-0" Style="width:300px"></MudTextField>
+
+    </ToolBarContent>
+    <ColGroup>
+        <col style="width:100px;" />
+        <col style="width:100%;" />
+        <col style="width:50px;" />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<Components.Model.ListWord, object>(x=>x.Count)">Antall</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Components.Model.ListWord, object>(x=>x.Word)">Ord</MudTableSortLabel></MudTh>
+        <MudTh>Fjern</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Antall">@context.Count</MudTd>
+        <MudTd DataLabel="Ord">@context.Word</MudTd>
+        <MudTd DataLabel="Fjern"><MudIcon Icon="@Icons.Material.Filled.Remove" onclick="@(() => DeleteWord(context))" Color="Color.Error"></MudIcon></MudTd>
+    </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd DataLabel="Count">
+            <MudTextField @bind-Value="@context.Count" Required />
+        </MudTd>
+        <MudTd DataLabel="Word">
+            <MudTextField @bind-Value="@context.Word" Required />
+        </MudTd>
+    </RowEditingTemplate>
+    <PagerContent>
+        <MudTablePager InfoFormat="Linje {first_item}-{last_item} av {all_items}" RowsPerPageString="Rader pr side" PageSizeOptions="new int[]{10, 20, 25, 30, 50, 100, 500}" />
+    </PagerContent>
+    <EditButtonContent Context="button">
+        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" Class="pa-0" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
+    </EditButtonContent>
+</MudTable>
+
+
+
+
+@code
+{
+    [Inject] Components.MyOrdsky Ordsky { get; set; } = null!;
+
+    private void RefreshMe() => this.StateHasChanged();
+    private string searchString = "";
+    private Components.Model.ListWord selectedItem1 = null!;
+    private bool loading = false;
+
+
+    private bool FilterFunc(Components.Model.ListWord element)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Word.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+
+    private void DeleteWord(Components.Model.ListWord word)
+    {
+        Ordsky.WordList.Remove(word);
+        RefreshMe();
+    }
+}

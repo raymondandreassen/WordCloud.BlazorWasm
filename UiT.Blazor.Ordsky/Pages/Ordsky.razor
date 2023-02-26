@@ -4,8 +4,6 @@
     @*<canvas id="my_wordcloud_canvas" style="@canvas_styletag"></canvas>*@
 </center>
 
-Hei fra utviklerlunch<br/>
-
 @code {
     [Inject] Components.MyOrdsky OrdSky { get; set; } = null!;
     [Inject] Gutan.Components.DI.MyUIManager myUI { get; set; } = null!;
@@ -21,8 +19,4 @@ Hei fra utviklerlunch<br/>
     }
 
     private void RefreshMe() => this.StateHasChanged();
-    
-
-
-
 }

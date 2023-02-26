@@ -2,15 +2,19 @@
 <MudNavMenu Dense="false">
     <MudNavLink OnClick="GotoIndex" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home" Class="mb-4">Startsiden</MudNavLink>
 
+    <MudDivider></MudDivider>
     <MudNavLink OnClick="GotoText" Icon="@Icons.Material.Filled.TextSnippet">Din tekst</MudNavLink>
-    <MudNavLink OnClick="GotoKeep" Icon="@Icons.Material.Filled.Comment">Sammensatte ord</MudNavLink>
-    <MudNavLink OnClick="GotoNoise" Icon="@Icons.Material.Filled.NoiseControlOff">St&oslash;yord</MudNavLink>
+    <MudNavLink OnClick="GotoFilter" Icon="@Icons.Material.Filled.Comment">Sammensatte ord</MudNavLink>
+    <MudNavLink OnClick="GotoNoise" Icon="@Icons.Material.Filled.Comment">Støy ord</MudNavLink>
     <MudDivider></MudDivider>    
     <MudNavLink OnClick="GotoOrdliste" Icon="@Icons.Material.Filled.List">Ordliste</MudNavLink>
 
+    <MudDivider></MudDivider>
     <MudNavLink OnClick="GotoConfig" Icon="@Icons.Material.Filled.ConfirmationNumber">Konfigurasjon</MudNavLink>
     <MudNavLink OnClick="GotoOrdsky" Class="mb-4" Icon="@Icons.Material.Filled.CloudDownload">Ordsky</MudNavLink>
+    <MudDivider></MudDivider>
 
+    <MudNavLink OnClick="GotoExport" Class="mb-4" Icon="@Icons.Material.Filled.ImportExport">Exporter/Importer</MudNavLink>
 </MudNavMenu>
 
 @code {
@@ -20,15 +24,17 @@
 
     private async Task GotoIndex()      { Navigation.NavigateTo("/");               await UpdatePage(); }
     private async Task GotoText()       { Navigation.NavigateTo("/tekst");          await UpdatePage(); }
-    private async Task GotoKeep()       { Navigation.NavigateTo("/sammensatteOrd"); await UpdatePage(); }
-    private async Task GotoNoise()      { Navigation.NavigateTo("/stoyord");        await UpdatePage(); }
+    private async Task GotoFilter() { Navigation.NavigateTo("/sammensatt"); await UpdatePage(); }
+    private async Task GotoNoise() { Navigation.NavigateTo("/stoy"); await UpdatePage(); }
+    private async Task GotoExport() { Navigation.NavigateTo("/export"); await UpdatePage(); }
+
     private async Task GotoOrdliste()   { Navigation.NavigateTo("/ordliste");       await UpdatePage(); }
     private async Task GotoConfig()     { Navigation.NavigateTo("/konfig");         await UpdatePage(); }
     private async Task GotoOrdsky()     { Navigation.NavigateTo("/ordsky");         await UpdatePage(); }
 
     private async Task UpdatePage()
     {
-        await Task.Delay(100); // Wait for page to load
+        // await Task.Delay(100); // Wait for page to load
     }
 
     private async Task ReloadOrdSky()

@@ -16,33 +16,36 @@ namespace Gutan.BlazorWasm.Ordsky.Components
         public MyOrdsky(IJSRuntime js)
         {
             this.Js = js;
-            //MyOrdskyLoader.RandomizeWords(WordList, 500);
         }
-
         IJSRuntime Js { get; set; } = null!;
 
-        public string Text { get; set; } = string.Empty;
-        public string CombinedWords { get; set; } = string.Empty;
-
-
+        public string Text { get; set; } = "";
 
         // Ordliste Kontroll
         public List<ListWord> WordList { get; set; } = new List<ListWord>();
-        public void ClearWords() => WordList.Clear();
+        public bool SorterOrd { get; set; } = true;
 
-        public void FjernOrd(ListWord w)
+        public void WordListClear()
         {
-            WordList.Remove(w);
+            WordList.Where(c=> c.Wordtype == WordType.Normal).ToList().ForEach(c => WordList.Remove(c));    
+        }
+
+        public IEnumerable<ListWord> CombinedWords { get { return WordList.Where(c => c.Wordtype == WordType.Combined).OrderBy(c => c.Word).ToArray(); } }
+        public IEnumerable<ListWord> CloudWords { get { return WordList.Where(c => c.Wordtype == WordType.Normal).OrderBy(c => c.Word).ToArray(); } }
+
+        public IEnumerable<ListWord> NoiseWords { get { return WordList.Where(c => c.Wordtype == WordType.Noise).OrderBy(c => c.Word).ToArray(); } }
+        internal ListWord? GetWordListItem(string sentence)
+        {
+            return WordList.FirstOrDefault(c=>c.Word.Equals(sentence, StringComparison.OrdinalIgnoreCase));
         }
 
 
-        
         public object[][] WordListArray()
         {
             if(SorterOrd)
-                return WordList.OrderByDescending( c => c.Count).Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
+                return WordList.Where(c=>c.Wordtype == WordType.Normal || c.Wordtype == WordType.Combined).OrderByDescending( c => c.Count).Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
             else
-                return WordList.Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
+                return WordList.Where(c=>c.Wordtype == WordType.Normal || c.Wordtype == WordType.Combined).Select(x => new object[] { x.Word, x.Count.ToString() }).ToArray();
         }
 
 
@@ -126,6 +129,8 @@ namespace Gutan.BlazorWasm.Ordsky.Components
                 Console.WriteLine($"Error Message: {e.Message}");
             }
         }
+
+
     }
 }
 

@@ -1,27 +1,36 @@
 ﻿@page "/tekst"
 
 <PageHeading Title="Ordsky" Heading="Din tekst for å bygge ordsky"></PageHeading>
-<MudStack Style="width:1200px; height:100%">
+<MudStack Style="width:100%; height:1000px">
     <MudTextField 
         @ref="multilineReference" 
         T="string" 
-        Label="Kopier inn teksten din" 
-        Lines="30" 
+        Label="Kopier inn teksten din"
+        Lines="45"
         Variant="Variant.Outlined" 
-        Text="@sampleText" 
         Adornment="Adornment.End" 
         AdornmentIcon="@Icons.Material.Filled.Api" 
         OnAdornmentClick="@(() => multilineReference.SelectAsync())" 
         @bind-Value="Ordsky.Text"
         />
-    <MudButton Variant="Variant.Outlined" Color="Color.Primary" FullWidth="true" Style="height:35px"></MudButton>
+    <MudButton Variant="Variant.Outlined" Color="Color.Primary" FullWidth="true" Style="height:35px" OnClick="LoadWordList">Last inn i ordlisten</MudButton>
 </MudStack>
+
+<MudOverlay Visible="@IsProcessing"></MudOverlay>
 
 
 @code
 {
     [Inject] Components.MyOrdsky Ordsky { get; set; } = null!;
-
     private MudTextField<string> multilineReference;
-    string sampleText = "Du kan trykke så mye du vil, men knappen under har ingen funksjon. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+    private bool IsProcessing = false;
+
+    private void LoadWordList()
+    {
+        IsProcessing = true;
+        this.StateHasChanged();
+        Components.MyOrdskyProcessor.Process(Ordsky);
+        IsProcessing = false;
+        this.StateHasChanged();
+    }
 }
