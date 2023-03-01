@@ -1,13 +1,82 @@
 ﻿@page "/ordsky"
-<center>
-    <div id="my_wordcloud_canvas" style="width:1280px;height:800px"></div>
-    @*<canvas id="my_wordcloud_canvas" style="@canvas_styletag"></canvas>*@
-</center>
+<MudDrawerContainer Class="mud-height-full">
+    <MudDrawer @bind-Open="@open" Width="600px" MiniWidth="60px" Elevation="1" Anchor="Anchor.Right" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true">
+        @if(!open)
+        {
+            <div style="background-color:lightsteelblue; height:100%; width:100%">
+            <p class="pt-4 pl-2 pr-2" style="writing-mode: vertical-rl">
+                <MudText Typo="Typo.h2" Color="Color.Info">&nbsp;&nbsp;&nbsp;Konfigurasjon av ordsky layout</MudText>
+            </p>
+            </div>
+        }
+        else
+        {
+            <MudDrawerHeader>
+                <MudText Typo="Typo.h6">My App</MudText>
+            </MudDrawerHeader>
+            <MudPaper Class="ma-4 pa-4" Elevation="3">
+                <MudStack>
+                    <MudItem Style="align-content:center">
+                        <MudSelect Label="Canvas bakgrunnsfarge" T="Components.Model.CanvasShape" MultiSelection="false" ToStringFunc="@converter_CanvasShape" @bind-Value="@(OrdSky.CanvasShape)">
+                            @foreach (Components.Model.CanvasShape c in Components.MyOrdskyLoader.LoadCanvasShape())
+                            {
+                                <MudSelectItem Value="@c"></MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudColorPicker DisableToolbar="false" Label="Dialog Picker" PickerVariant="PickerVariant.Dialog" Value="@(OrdSky.CanvasBackgroundColor)" ValueChanged="ColorUpdated" />
+                    <MudSwitch Label="Krymp tekst for å tilpasse" @bind-Checked="OrdSky.CanvasShrinkToFit" Color="Color.Success"></MudSwitch>
+                    <MudSwitch Label="Tegn utenfor canvas" @bind-Checked="OrdSky.CanvasDrawOutofBounds" Color="Color.Success"></MudSwitch>
+
+                    <MudItem Style="align-content:center">
+                        <MudSelect Label="Font velger" T="string" MultiSelection="false" @bind-Value="@(OrdSky.CanvasFont)">
+                            @foreach (string c in Components.MyOrdskyLoader.LoadFonts())
+                            {
+                                <MudSelectItem Value="@c"></MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem Style="align-content:center">
+                        <MudSelect Label="Font vekt" T="string" MultiSelection="false" @bind-Value="@(OrdSky.CanvasFontWeight)">
+                            @foreach (string c in Components.MyOrdskyLoader.LoadFontsWeight())
+                            {
+                                <MudSelectItem Value="@c"></MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudNumericField @bind-Value="OrdSky.CanvasMinFontSize" Label="Minste font størrelse" Variant="Variant.Outlined" Step="1" />
+                    <MudNumericField @bind-Value="OrdSky.CanvasWeightFactor" Label="Vekt faktor på rendering" Variant="Variant.Outlined" Step=".1M" />
+                    <MudNumericField @bind-Value="OrdSky.CanvasMinRotation" Label="Minimum rotasjon på tekst" Variant="Variant.Outlined" Step="5" />
+                    <MudNumericField @bind-Value="OrdSky.CanvasMaxRotation" Label="Maximum rotasjon på tekst" Variant="Variant.Outlined" Step="5" />
+                    <MudNumericField @bind-Value="OrdSky.CanvasRotasjonssteg" Label="Rotasjonstrinn" Variant="Variant.Outlined" Step="5" />
+                    <MudNumericField @bind-Value="OrdSky.CanvasRotasjonssannsynlighet" Label="Rotasjonssannsynlighet" Variant="Variant.Outlined" Step="0.05M" />
+                    <MudNumericField @bind-Value="OrdSky.CanvasEllipticity" Label="Hvor flat ordskyen skal lages" Variant="Variant.Outlined" Step="0.1M" />
+
+
+
+                </MudStack>
+            </MudPaper>
+        }
+
+    </MudDrawer>
+
+    <center>
+        <div id="my_wordcloud_canvas" style="width:1280px;height:800px"></div>
+        @*<canvas id="my_wordcloud_canvas" style="@canvas_styletag"></canvas>*@
+    </center>
+
+
+    <a @onclick="(() => open = !open)">Vis konfig</a>
+
+</MudDrawerContainer>
 
 @code {
     [Inject] Components.MyOrdsky OrdSky { get; set; } = null!;
     [Inject] Gutan.Components.DI.MyUIManager myUI { get; set; } = null!;
 
+    private bool open = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -19,4 +88,12 @@
     }
 
     private void RefreshMe() => this.StateHasChanged();
+
+    Func<Components.Model.CanvasSize, string> converter_CanvasSize = p => p?.Name;
+    Func<Components.Model.CanvasShape, string> converter_CanvasShape = p => p?.DisplayName;
+
+    protected void ColorUpdated(MudBlazor.Utilities.MudColor color)
+    {
+        OrdSky.CanvasBackgroundColor = color.Value;
+    }
 }

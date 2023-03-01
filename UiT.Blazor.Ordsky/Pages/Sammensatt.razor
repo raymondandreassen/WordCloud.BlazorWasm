@@ -18,9 +18,9 @@
     <ToolBarContent>
         <MudText Typo="Typo.h6">Dine ord eller uttrykk</MudText>
         <MudSpacer />
-        @*<MudIcon Icon="@Icons.Material.Filled.Add" onclick="@(() => AddWord())" Color="Color.Success"></MudIcon>*@
+        
         <MudTextField @bind-Value="searchString" Placeholder="Søk" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Small" Class="mt-0" Style="width:300px"></MudTextField>
-
+        <MudIcon Icon="@Icons.Material.Filled.Add" onclick="@(() => AddWord())" Color="Color.Success">Legg til sammensatt uttrykk</MudIcon>
     </ToolBarContent>
     <ColGroup>
         <col style="width:100px;" />
@@ -59,6 +59,7 @@
 @code
 {
     [Inject] Components.MyOrdsky Ordsky { get; set; } = null!;
+    [Inject] IDialogService DialogService { get; set; } = null!;
 
     private void RefreshMe() => this.StateHasChanged();
     private string searchString = "";
@@ -78,6 +79,33 @@
     private void DeleteWord(Components.Model.ListWord word)
     {
         Ordsky.WordList.Remove(word);
+        RefreshMe();
+    }
+
+    private void AddWordx()
+    {
+        var newWord = new Components.Model.ListWord();
+        newWord.Word = "Nytt sammensatt uttrykk";
+        newWord.Wordtype = Components.Model.WordType.Combined;
+        Ordsky.WordList.Add(newWord);
+
+        FilterFunc(newWord);
+        selectedItem1 = newWord;
+
+        RefreshMe();
+    }
+
+    async Task AddWord()
+    {
+        var parameters = new DialogParameters { ["Ordsky"] = Ordsky };
+
+        var dialog = await DialogService.ShowAsync<NyttSammensattOrd>("Uttrykk", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+
+        }
         RefreshMe();
     }
 }

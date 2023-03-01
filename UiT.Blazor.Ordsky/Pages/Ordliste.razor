@@ -36,7 +36,7 @@
         <RowTemplate>
             <MudTd DataLabel="Antall">@context.Count</MudTd>
             <MudTd DataLabel="Ord">@context.Word</MudTd>
-            <MudTd DataLabel="Fjern"><MudIcon Icon="@Icons.Material.Filled.MoveDown" onclick="@(() => DeleteWord(context))" Color="Color.Error"></MudIcon></MudTd>
+            <MudTd DataLabel="Støyord"><MudIcon Icon="@Icons.Material.Filled.Redo" onclick="@(() => DeleteWord(context))" Color="Color.Warning"></MudIcon></MudTd>
         </RowTemplate>
         <RowEditingTemplate>
             <MudTd DataLabel="Count">
