@@ -20,7 +20,7 @@
         <MudSpacer />
         
         <MudTextField @bind-Value="searchString" Placeholder="Søk" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Small" Class="mt-0" Style="width:300px"></MudTextField>
-        <MudIcon Icon="@Icons.Material.Filled.Add" onclick="@(() => AddWord())" Color="Color.Success">Legg til sammensatt uttrykk</MudIcon>
+        <MudFab StartIcon="@Icons.Material.Filled.Add" Color="Color.Tertiary" Label="Legg til sammensatte ord" OnClick="@(() => AddWord())" />
     </ToolBarContent>
     <ColGroup>
         <col style="width:100px;" />
